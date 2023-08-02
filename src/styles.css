@@ -1,1 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* login and singup pages */
+.container {
+    background-color: white;
+    font-family: "Roboto";
+    margin: 25px;
+    padding: 25px;
+    width: 50vw;
+    position: relative;
+    left: 25%;
+    right: 25%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}

@@ -1,0 +1,37 @@
+<mat-toolbar>
+    <span>Login</span>
+</mat-toolbar>
+<div class="container">
+    <h2> hospital Login page</h2>
+    <form [formGroup]="hospitalLogin" (ngSubmit)="submit()" autocomplete="off">
+        <p>
+            <mat-form-field [style.width.em]="15">
+                <mat-icon matSuffix>email</mat-icon>
+                <mat-label>Email Id</mat-label>
+                <input matInput placeholder="email@gmail.com" type="email" formControlName="email">
+                <mat-error *ngIf="hospitalLogin.get('email')?.errors && hospitalLogin.get('email')?.errors">
+                    Invalid E-Mail Pattern
+                </mat-error>
+            </mat-form-field>
+        </p>
+        <p>
+            <mat-form-field [style.width.em]="15">
+                <mat-label>Password</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                <mat-error *ngIf="hospitalLogin.get('password')?.errors">Min Length should be
+                    {{this.minLength}}</mat-error>
+            </mat-form-field>
+        </p>
+        <p>Dont have an account? <a routerLink="/hospital/signup">Signup</a></p>
+        <p>
+            <button mat-raised-button [style.width.em]="15" type="submit"
+                [disabled]="!hospitalLogin.valid">Login</button>
+        </p>
+
+    </form>
+
+</div>

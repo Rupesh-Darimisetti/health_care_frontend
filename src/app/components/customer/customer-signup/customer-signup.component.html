@@ -1,0 +1,77 @@
+<div class="container">
+    <h2> Customer signup page</h2>
+    <p>
+        <mat-form-field appearance="outline" [style.width.em]="15">
+            <mat-label>First Name</mat-label>
+            <input matInput placeholder="jack">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline" [style.width.em]="15">
+            <mat-label>Last Name</mat-label>
+            <input matInput placeholder="seizer">
+            <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline" [style.width.em]="15">
+            <mat-label>SSN (Social Security Number)</mat-label>
+            <input matInput placeholder="Social Security Number">
+            <mat-icon matSuffix>security_number</mat-icon>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline" [style.width.em]="15">
+            <mat-label>Patient Address</mat-label>
+            <input matInput placeholder="patient address">
+            <mat-icon matSuffix>location_on</mat-icon>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline" [style.width.em]="15">
+            <mat-label>Zip Code</mat-label>
+            <input matInput placeholder="6 digit local zip code address">
+            <mat-icon matSuffix>location_city</mat-icon>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline" [style.width.em]="15">
+            <mat-label>Contact Number</mat-label>
+            <input matInput type="tel" maxlength="10" placeholder="contact number">
+            <mat-icon matSuffix>phone</mat-icon>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline" [style.width.em]="15">
+            <mat-icon matSuffix>email</mat-icon>
+            <mat-label>Email Id</mat-label>
+            <input matInput placeholder="email@gmail.com">
+        </mat-form-field>
+    </p>
+
+    <p>
+        <mat-form-field appearance="outline" [style.width.em]="15">
+            <mat-label>Enter your password</mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field appearance="outline" [style.width.em]="15">
+            <mat-label>Confirm Password </mat-label>
+            <input matInput [type]="hide ? 'password' : 'text'">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+    </p>
+    <p>Already have an account? <a routerLink="/customer/login">Login</a></p>
+    <p>
+        <button mat-raised-button color="ascent" [style.width.em]="15">Submit</button>
+    </p>
+</div>
