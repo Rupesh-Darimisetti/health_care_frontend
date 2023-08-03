@@ -22,6 +22,9 @@ export class CustomerLoginComponent implements OnInit {
   ngOnInit(): void { }
 
   submit() {
-    this.router.navigate(['/customer/dashboard'])
+    if (this.customerLogin) {
+
+      this.router.navigate(['/customer/dashboard'])
+    }
   }
 }

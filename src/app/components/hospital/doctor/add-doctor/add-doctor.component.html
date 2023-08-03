@@ -4,47 +4,59 @@
         <form [formGroup]="doctorForm">
             <mat-form-field apperance="outline">
                 <mat-label>First Name</mat-label>
-                <input formControlName="first_name" matInput placeholder="first_name" required>
+                <input formControlName="firstName" matInput placeholder="first_name" required>
             </mat-form-field>
             <mat-form-field apperance="outline">
                 <mat-label>Last Name</mat-label>
-                <input formControlName="last_name" matInput placeholder="last_name" required>
+                <input formControlName="lastName" matInput placeholder="last_name" required>
             </mat-form-field>
-            <mat-form-field apperance="outline">
-                <mat-label>Gender</mat-label>
-                <input formControlName="gender" matInput placeholder="gender" required>
+            <mat-form-field apperance="fill">
+                <mat-label> Select a Gender</mat-label>
+                <mat-select formControlName="gender" (value)="selectedGender">
+                    <mat-option *ngFor="let gender of genders" [value]="gender">{{gender}}</mat-option>
+                </mat-select>
             </mat-form-field>
+
             <mat-form-field apperance="outline">
                 <mat-label>Age</mat-label>
                 <input formControlName="age" matInput placeholder="Age" required>
             </mat-form-field>
+
             <mat-form-field apperance="outline">
                 <mat-label>specialization</mat-label>
                 <input formControlName="specialization" matInput placeholder="specialization" required>
             </mat-form-field>
+
             <mat-form-field apperance="outline">
                 <mat-label>contact_number</mat-label>
-                <input formControlName="contact_number" matInput placeholder="contact_number" required>
+                <input formControlName="contactNumber" matInput placeholder="contact number" required>
             </mat-form-field>
+
             <mat-form-field apperance="outline">
                 <mat-label>email_address</mat-label>
-                <input formControlName="email_address" matInput placeholder="email_address" required>
+                <input formControlName="emailAddress" matInput placeholder="email_address" required>
             </mat-form-field>
+
             <mat-form-field apperance="outline">
                 <mat-label>years_of_experience</mat-label>
-                <input formControlName="years_of_experience" matInput placeholder="years_of_experience" required>
+                <input formControlName="yearsOfExperience" matInput placeholder="years_of_experience" required>
             </mat-form-field>
+
             <mat-form-field apperance="outline">
                 <mat-label>languages_known</mat-label>
-                <input formControlName="languages_known" matInput placeholder="languages_known" required>
+                <input formControlName="languagesKnown" matInput placeholder="languages_known" required>
             </mat-form-field>
             <mat-form-field apperance="outline">
                 <mat-label>consultation_hours</mat-label>
-                <input formControlName="consultation_hours" matInput placeholder="consultation_hours" required>
-            </mat-form-field>
+                <input formControlName="consultationHours" matInput [type]="'time'" placeholder="consultation_hours">
+                <input matInput [matDatepicker]="picker" formControlName="selectedTimes" multiple>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker></mat-form-field>
             <mat-form-field apperance="outline">
-                <mat-label>availability_days</mat-label>
-                <input formControlName="availability_days" matInput placeholder="availability_days" required>
+                <mat-label>Select Available Days</mat-label>
+                <mat-select formControlName="availabilityDays" multiple required="">
+                    <mat-option *ngFor="let day of days" [value]="day">{{ day }}</mat-option>
+                </mat-select>
             </mat-form-field>
         </form>
     </div>

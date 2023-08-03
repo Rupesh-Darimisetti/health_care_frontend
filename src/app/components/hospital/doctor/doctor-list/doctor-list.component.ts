@@ -1,9 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Doctor } from 'src/app/interfaces/Doctor';
-import { MatTableDataSource } from '@angular/material/table'
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
+import { DoctorDetails } from 'src/app/interfaces/DoctorDetails';
 import { DoctorService } from 'src/app/service/doctor.service';
 import { UpdateDoctorComponent } from '../update-doctor/update-doctor.component';
 
@@ -32,7 +32,7 @@ export class DoctorListComponent implements OnInit {
     "consultation_hours",
     "availability_days",
   ]
-  dataSource!: MatTableDataSource<Doctor>;
+  dataSource!: MatTableDataSource<DoctorDetails>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -49,7 +49,7 @@ export class DoctorListComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  editDoctor(row: Doctor) {
+  editDoctor(row: DoctorDetails) {
     this.dialog.open(UpdateDoctorComponent, {
       data: row
     }).afterClosed().subscribe((val) => {
@@ -62,17 +62,17 @@ export class DoctorListComponent implements OnInit {
   deleteDoctor(id: number) {
     this.doctorService.deleteDoctor(id).subscribe({
       next: (res) => {
-        alert('Doctor deleted Successfuly');
+        alert('DoctorDetails deleted Successfuly');
         this.getAllDoctors();
         this.TotalDoctorCount();
       },
       error: () => {
-        alert('error while deleting the Doctor ');
+        alert('error while deleting the DoctorDetails ');
       }
     });
   }
   getAllDoctors(): void {
-    this.doctorService.getDoctor().subscribe({
+    this.doctorService.getAllDoctor().subscribe({
       next: (res) => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;

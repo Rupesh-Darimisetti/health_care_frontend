@@ -9,7 +9,8 @@
                 <mat-icon matSuffix>email</mat-icon>
                 <mat-label>Email Id</mat-label>
                 <input matInput placeholder="email@gmail.com" type="email" formControlName="email">
-                <mat-error *ngIf="hospitalLogin.get('email')?.errors && hospitalLogin.get('email')?.errors">
+                <mat-error *ngIf="hospitalLogin.get('email')?.hasError('required')">Emai is required</mat-error>
+                <mat-error *ngIf="  hospitalLogin.get('email')?.hasError('email')">
                     Invalid E-Mail Pattern
                 </mat-error>
             </mat-form-field>
@@ -23,7 +24,7 @@
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
                 <mat-error *ngIf="hospitalLogin.get('password')?.errors">Min Length should be
-                    {{this.minLength}}</mat-error>
+                    {{this.minLength}} char long.</mat-error>
             </mat-form-field>
         </p>
         <p>Dont have an account? <a routerLink="/hospital/signup">Signup</a></p>

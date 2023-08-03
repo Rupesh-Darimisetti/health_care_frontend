@@ -1,8 +1,9 @@
 export interface HospitalBeds {
-    serial_num: number;
     h_id: number;
-    h_regular_beds: number;
+    beds_code: string;
+    serial_num: number;
     h_icu_beds: number;
+    h_regular_beds: number;
     h_pediatric_beds: number;
     h_maternity_beds: number;
     h_birthing_beds: number;

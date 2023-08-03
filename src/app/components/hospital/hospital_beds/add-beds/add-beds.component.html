@@ -1,1 +1,44 @@
-<p>add-beds works!</p>
+<h1 mat-dialog-title>Add Hospital Beds</h1>
+<div class="container">
+    <div mat-dialog-content>
+        <form [formGroup]="hospitalBedsForm">
+            <mat-form-field apperance="outline">
+                <mat-label>Regular Beds</mat-label>
+                <input formControlName="hRegularBeds" matInput placeholder="hRegularBeds" required>
+            </mat-form-field>
+            <mat-form-field apperance="outline">
+                <mat-label>hIcuBeds</mat-label>
+                <input formControlName="hIcuBeds" matInput placeholder="hIcuBeds" required>
+            </mat-form-field>
+            <mat-form-field apperance="outline">
+                <mat-label>hPediatricBeds</mat-label>
+
+                <input formControlName="hPediatricBeds" matInput placeholder="hPediatricBeds" required>
+            </mat-form-field>
+            <mat-form-field apperance="outline">
+                <mat-label>hMaternityBeds</mat-label>
+                <input formControlName="hMaternityBeds" matInput placeholder="hMaternityBeds" required>
+            </mat-form-field>
+            <mat-form-field apperance="outline">
+                <mat-label>hBirthingBeds</mat-label>
+                <input formControlName="hBirthingBeds" matInput placeholder="hBirthingBeds" required>
+            </mat-form-field>
+            <mat-form-field apperance="outline">
+                <mat-label>hOrthopedicBeds</mat-label>
+                <input formControlName="hOrthopedicBeds" matInput placeholder="hOrthopedicBeds" required>
+            </mat-form-field>
+            <mat-form-field apperance="outline">
+                <mat-label>hHomeCareBeds</mat-label>
+                <input formControlName="hHomeCareBeds" matInput placeholder="hHomeCareBeds" required>
+            </mat-form-field>
+            <mat-form-field apperance="outline">
+                <mat-label>hEmergencyBeds</mat-label>
+                <input formControlName="hEmergencyBeds" matInput placeholder="hEmergencyBeds" required>
+            </mat-form-field>
+        </form>
+    </div>
+    <div mat-dialog-action [align]="'center'">
+        <!-- <button mat-raised-button color="warn" mat-dialog-close>Close</button> -->
+        <button style="width: 70%;" mat-raised-button color="primary" (click)="addBeds()">save</button>
+    </div>
+</div>

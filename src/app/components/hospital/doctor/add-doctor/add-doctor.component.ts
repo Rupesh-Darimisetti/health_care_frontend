@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AvailabilityDays } from 'src/app/enums/AvailableDays';
+import { Gender } from 'src/app/enums/Gender';
+import { DoctorDetails } from 'src/app/interfaces/DoctorDetails';
 import { DoctorService } from 'src/app/service/doctor.service';
 
 @Component({
@@ -10,6 +13,9 @@ import { DoctorService } from 'src/app/service/doctor.service';
 export class AddDoctorComponent implements OnInit {
   doctorForm!: FormGroup;
   phoneLength: number = 10;
+  days = Object.values(AvailabilityDays);
+  genders = Object.values(Gender);
+  selectedGender!: Gender;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -17,37 +23,59 @@ export class AddDoctorComponent implements OnInit {
 
   ngOnInit(): void {
     this.doctorForm = this.formBuilder.group({
-      first_name: new FormControl('', [
+      firstName: [null, [
         Validators.pattern(/^[A-Za-z,.'-]+$/),
         Validators.minLength(3),
         Validators.required,
-      ]),
-      last_name: new FormControl('', [
+      ]],
+      lastName: [null, [
         Validators.pattern(/^[A-Za-z,.'-]+$/),
         Validators.minLength(3),
-        Validators.required,]),
-      gender: new FormControl('', []),
-      age: new FormControl('', []),
-      specialization: new FormControl('', []),
-      contact_number: new FormControl('', []),
-      email_address: new FormControl('', [Validators.email, Validators.required]),
-      years_of_experience: new FormControl('', [Validators.pattern(/^[0-9]$/), Validators.maxLength(3), Validators.required]),
-      languages_known: new FormControl('', []),
-      consultation_hours: new FormControl('', [Validators.pattern(/^[0-9]{2}$/), Validators.required]),
-      availability_days: new FormControl('', []),
+        Validators.required,]],
+      gender: [null, Validators.required],
+      age: [null, [Validators.required, Validators.min(1)]],
+      specialization: [null, Validators.required],
+      contactNumber: [null, [Validators.required, Validators.pattern('[0-9]*')]],
+      emailAddress: [null, [Validators.required, Validators.email]],
+      yearsOfExperience: [null, [Validators.required, Validators.min(1)]],
+      languagesKnown: [null, Validators.required],
+      consultationHours: [[null], Validators.required],
+      availabilityDays: [[null], Validators.required],
+      selectedTime: []
     })
   };
-
+  onAvailabilityDaysSelected(response: any) {
+    // Set the selected value to the availabilityDays form control
+    this.availabiltyDays?.setValue(response.target.value);
+  }
+  changeGender(response: any) {
+    this.gender?.setValue(response.target.value, {
+      onlySelf: true
+    })
+  }
+  // acces the form control getter
+  get gender() {
+    return this.doctorForm.get('gender');
+  }
+  get availabiltyDays() {
+    return this.doctorForm.get('availableDays');
+  }
   addDoctor() {
+    if (this.doctorForm.invalid) {
+      return;
+    }
+
+    const doctor: DoctorDetails = this.doctorForm.value;
+    console.log(doctor)
     if (this.doctorForm.valid) {
-      this.doctorService.postDoctor(this.doctorForm.value)
+      this.doctorService.addDoctor(this.doctorForm.value)
         .subscribe({
           next: (res) => {
-            alert("Employee added successfully")
+            alert("Doctor added successfully")
             this.doctorForm.reset();
           },
           error: () => {
-            alert("Error while adding employee")
+            alert("Error while adding Doctor")
           }
         });
     }
