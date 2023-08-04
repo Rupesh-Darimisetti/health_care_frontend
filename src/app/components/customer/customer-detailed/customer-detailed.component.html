@@ -1,0 +1,13 @@
+<h1>Hospital Dahboard</h1>
+<mat-tab-group>
+    <mat-tab label="Doctors">
+        <button mat-raised-button color="primary" routerLink="/hospital/doctor/doctor_list">
+            Add Doctor</button>
+        <app-doctor-list></app-doctor-list></mat-tab>
+    <mat-tab label="Beds">
+
+        <button mat-raised-button color="primary" routerLink="/hospital/hospital_beds/bed_list">
+            Add Beds</button>
+        <app-beds-list></app-beds-list>
+    </mat-tab>
+</mat-tab-group>

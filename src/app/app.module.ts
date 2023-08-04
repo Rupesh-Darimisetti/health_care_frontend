@@ -20,6 +20,7 @@ import { BedsListComponent } from './components/hospital/hospital_beds/beds-list
 import { UpdateBedsComponent } from './components/hospital/hospital_beds/update-beds/update-beds.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MaterialModule } from './modules/material/material.module';
+import { CustomerDetailedComponent } from './components/customer/customer-detailed/customer-detailed.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MaterialModule } from './modules/material/material.module';
     // beds
     AddBedsComponent,
     UpdateBedsComponent,
-    BedsListComponent
+    BedsListComponent,
+    CustomerDetailedComponent
   ],
   imports: [
     BrowserModule,

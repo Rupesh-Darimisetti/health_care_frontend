@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomerDashboardComponent } from './components/customer/customer-dashboard/customer-dashboard.component';
+import { CustomerDetailedComponent } from './components/customer/customer-detailed/customer-detailed.component';
 import { CustomerLoginComponent } from './components/customer/customer-login/customer-login.component';
 import { CustomerSignupComponent } from './components/customer/customer-signup/customer-signup.component';
 import { AddDoctorComponent } from './components/hospital/doctor/add-doctor/add-doctor.component';
@@ -25,15 +26,19 @@ const routes: Routes = [
   // beds
   { path: 'hospital/hospital_beds', component: BedsListComponent },
   { path: 'hospital/hospital_beds/add_beds', component: AddBedsComponent },
-  { path: 'hospital/hospital_beds/update_beds', component: UpdateBedsComponent },
+  {
+    path: 'hospital/hospital_beds/update_beds',
+    component: UpdateBedsComponent,
+  },
   // customer part
   { path: 'customer/login', component: CustomerLoginComponent },
   { path: 'customer/signup', component: CustomerSignupComponent },
-  { path: 'customer/dashboard', component: CustomerDashboardComponent }
+  { path: 'customer/dashboard', component: CustomerDashboardComponent },
+  { path: 'customer/detailed/:id', component: CustomerDetailedComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

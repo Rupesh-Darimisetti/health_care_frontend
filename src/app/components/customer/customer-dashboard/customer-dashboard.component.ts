@@ -125,6 +125,6 @@ export class CustomerDashboardComponent implements OnInit {
   // }
   /** TODO: Specify route in module and then link to doctors list component or new component with 2 tabs */
   AvailabityDetails(id: number) {
-    this.router.navigate(['/hospital/dashboard/:id']);
+    this.router.navigate(['/customer/detailed/', id]);
   }
 }
