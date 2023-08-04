@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { filter, map } from 'rxjs/operators';
 /** TODO: replace interface with available hospitals after modifying service */
 import {
@@ -65,7 +66,8 @@ export class CustomerDashboardComponent implements OnInit {
 
   constructor(
     private dialog: MatDialog,
-    private hospitalAccountService: HospitalAccountService
+    private hospitalAccountService: HospitalAccountService,
+    private router: Router
   ) {}
   ngOnInit(): void {
     this.getAvailableHospitals();
@@ -121,4 +123,8 @@ export class CustomerDashboardComponent implements OnInit {
   //     },
   //   });
   // }
+  /** TODO: Specify route in module and then link to doctors list component or new component with 2 tabs */
+  AvailabityDetails(id: number) {
+    this.router.navigate(['/hospital/dashboard/:id']);
+  }
 }
