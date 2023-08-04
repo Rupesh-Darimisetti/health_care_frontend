@@ -4,11 +4,11 @@
         <form [formGroup]="doctorForm">
             <mat-form-field apperance="outline">
                 <mat-label>First Name</mat-label>
-                <input formControlName="firstName" matInput placeholder="first_name" required>
+                <input formControlName="first_name" matInput placeholder="first_name" required>
             </mat-form-field>
             <mat-form-field apperance="outline">
                 <mat-label>Last Name</mat-label>
-                <input formControlName="lastName" matInput placeholder="last_name" required>
+                <input formControlName="last_name" matInput placeholder="last_name" required>
             </mat-form-field>
             <mat-form-field apperance="fill">
                 <mat-label> Select a Gender</mat-label>
@@ -29,32 +29,33 @@
 
             <mat-form-field apperance="outline">
                 <mat-label>contact_number</mat-label>
-                <input formControlName="contactNumber" matInput placeholder="contact number" required>
+                <input formControlName="contact_number" matInput placeholder="contact number" required>
             </mat-form-field>
 
             <mat-form-field apperance="outline">
                 <mat-label>email_address</mat-label>
-                <input formControlName="emailAddress" matInput placeholder="email_address" required>
+                <input formControlName="email_address" matInput placeholder="email_address" required>
             </mat-form-field>
 
             <mat-form-field apperance="outline">
                 <mat-label>years_of_experience</mat-label>
-                <input formControlName="yearsOfExperience" matInput placeholder="years_of_experience" required>
+                <input formControlName="years_of_experience" matInput placeholder="years_of_experience" required>
             </mat-form-field>
 
             <mat-form-field apperance="outline">
                 <mat-label>languages_known</mat-label>
-                <input formControlName="languagesKnown" matInput placeholder="languages_known" required>
+                <input formControlName="languages_known" matInput placeholder="languages_known" required>
             </mat-form-field>
             <mat-form-field apperance="outline">
                 <mat-label>consultation_hours</mat-label>
-                <input formControlName="consultationHours" matInput [type]="'time'" placeholder="consultation_hours">
-                <input matInput [matDatepicker]="picker" formControlName="selectedTimes" multiple>
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker></mat-form-field>
+                <input formControlName="consultation_hours" matInput placeholder="consultation_hours">
+                <!-- <input matInput [matDatepicker]="picker" formControlName="selectedTimes" multiple> -->
+                <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+                <!-- <mat-datepicker #picker></mat-datepicker></mat-form-field> -->
+            </mat-form-field>
             <mat-form-field apperance="outline">
                 <mat-label>Select Available Days</mat-label>
-                <mat-select formControlName="availabilityDays" multiple required="">
+                <mat-select formControlName="availability_days" multiple required="">
                     <mat-option *ngFor="let day of days" [value]="day">{{ day }}</mat-option>
                 </mat-select>
             </mat-form-field>
@@ -62,6 +63,6 @@
     </div>
     <div mat-dialog-action [align]="'center'">
         <!-- <button mat-raised-button color="warn" mat-dialog-close>Close</button> -->
-        <button style="width: 70%;" mat-raised-button color="primary" (click)="addDoctor()">save</button>
+        <button style="width: 70%;" mat-raised-button color="accent" (click)="addDoctor()">save</button>
     </div>
 </div>

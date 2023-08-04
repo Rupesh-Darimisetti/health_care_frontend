@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AvailabilityDays } from 'src/app/enums/AvailableDays';
@@ -23,25 +24,24 @@ export class AddDoctorComponent implements OnInit {
 
   ngOnInit(): void {
     this.doctorForm = this.formBuilder.group({
-      firstName: [null, [
+      first_name: [null, [
         Validators.pattern(/^[A-Za-z,.'-]+$/),
         Validators.minLength(3),
         Validators.required,
       ]],
-      lastName: [null, [
+      last_name: [null, [
         Validators.pattern(/^[A-Za-z,.'-]+$/),
         Validators.minLength(3),
         Validators.required,]],
       gender: [null, Validators.required],
       age: [null, [Validators.required, Validators.min(1)]],
       specialization: [null, Validators.required],
-      contactNumber: [null, [Validators.required, Validators.pattern('[0-9]*')]],
-      emailAddress: [null, [Validators.required, Validators.email]],
-      yearsOfExperience: [null, [Validators.required, Validators.min(1)]],
-      languagesKnown: [null, Validators.required],
-      consultationHours: [[null], Validators.required],
-      availabilityDays: [[null], Validators.required],
-      selectedTime: []
+      contact_number: [null, [Validators.required, Validators.pattern('[0-9]*')]],
+      email_address: [null, [Validators.required, Validators.email]],
+      years_of_experience: [null, [Validators.required, Validators.min(1)]],
+      languages_known: [[null], Validators.required],
+      consultation_hours: [[null], Validators.required],
+      availability_days: [[null], Validators.required],
     })
   };
   onAvailabilityDaysSelected(response: any) {
@@ -74,8 +74,9 @@ export class AddDoctorComponent implements OnInit {
             alert("Doctor added successfully")
             this.doctorForm.reset();
           },
-          error: () => {
-            alert("Error while adding Doctor")
+          error: (res: HttpErrorResponse) => {
+            alert("Error while adding Doctor");
+            console.log(res);
           }
         });
     }

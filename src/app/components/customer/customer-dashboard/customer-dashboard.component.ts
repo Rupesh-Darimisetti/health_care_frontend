@@ -4,11 +4,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
 /** TODO: replace interface with available hospitals after modifying service */
 import {
-  HospitalAccount,
   AvailableHospitals,
+  HospitalAccount,
 } from 'src/app/interfaces/HospitalAccount';
 import { HospitalAccountService } from 'src/app/service/hospital-account.service';
 
@@ -58,45 +57,17 @@ export class CustomerDashboardComponent implements OnInit {
     'beds_available',
   ];
 
+  // constructor (){}
   /** TODO: Comment from here while making it dynamic */
-  dataSource!: MatTableDataSource<AvailableHospitals>;
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(
-    private dialog: MatDialog,
-    private hospitalAccountService: HospitalAccountService,
-    private router: Router
-  ) {}
-  ngOnInit(): void {
-    this.getAvailableHospitals();
-  }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
-  }
-  getAvailableHospitals() {
-    this.dataSource = new MatTableDataSource(tempdata);
-    console.log(this.dataSource);
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
-    this.HospitalsCount = this.dataSource.data.length;
-  }
-
-  /**TODO: Make it dynamic */
-  // dataSource!: MatTableDataSource<HospitalAccount>;
+  // dataSource!: MatTableDataSource<AvailableHospitals>;
 
   // @ViewChild(MatPaginator) paginator!: MatPaginator;
   // @ViewChild(MatSort) sort!: MatSort;
 
   // constructor(
   //   private dialog: MatDialog,
-  //   private hospitalAccountService: HospitalAccountService
+  //   private hospitalAccountService: HospitalAccountService,
+  //   private router: Router
   // ) {}
   // ngOnInit(): void {
   //   this.getAvailableHospitals();
@@ -109,20 +80,50 @@ export class CustomerDashboardComponent implements OnInit {
   //     this.dataSource.paginator.firstPage();
   //   }
   // }
+  // getAvailableHospitals() {
+  //   this.dataSource = new MatTableDataSource(tempdata);
+  //   console.log(this.dataSource);
+  //   this.dataSource.paginator = this.paginator;
+  //   this.dataSource.sort = this.sort;
+  //   this.HospitalsCount = this.dataSource.data.length;
+  // }
+
+  /**TODO: Make it dynamic */
+  dataSource!: MatTableDataSource<HospitalAccount>;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+
+  constructor(
+    private router: Router,
+    private dialog: MatDialog,
+    private hospitalAccountService: HospitalAccountService
+  ) { }
+  ngOnInit(): void {
+    this.getAvailableHospitals();
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
   // /** TODO: Use filter/map to get hospitals with available beds count > 0 */
-  // getAvailableHospitals(): void {
-  //   this.hospitalAccountService.getHospitalAccount().subscribe({
-  //     next: (res) => {
-  //       this.dataSource = new MatTableDataSource(res);
-  //       this.dataSource.paginator = this.paginator;
-  //       this.dataSource.sort = this.sort;
-  //     },
-  //     error: (err) => {
-  //       alert('error while getting available beds');
-  //     },
-  //   });
-  // }
+  getAvailableHospitals(): void {
+    this.hospitalAccountService.getHospitalAccount().subscribe({
+      next: (res) => {
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: (err) => {
+        alert('error while getting available beds');
+      },
+    });
+  }
   /** TODO: Specify route in module and then link to doctors list component or new component with 2 tabs */
   AvailabityDetails(id: number) {
     this.router.navigate(['/customer/detailed/', id]);
