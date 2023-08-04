@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HospitalAccount } from 'src/app/interfaces/HospitalAccount';
 import { HospitalAccountService } from 'src/app/service/hospital-account.service';
 
 @Component({
@@ -11,14 +13,15 @@ import { HospitalAccountService } from 'src/app/service/hospital-account.service
 export class HospitalSignupComponent implements OnInit {
 
   hospitalSignup!: FormGroup;
-  hide: boolean = true;
+  hidePass: boolean = true;
+  hideConfirmPass: boolean = true;
   submitted: boolean = false;
   minLength: number = 6;
   idLength: number = 5;
-  phoneLength: number = 10;
+  h_contact_numberLength: number = 10;
+  h_zip_code_Length: number = 6;
 
-  // input fields
-  // email: String = "";
+  public hospitalAccounts!: HospitalAccount[];
 
   constructor(private formBuilder: FormBuilder,
     private router: Router,
@@ -26,34 +29,78 @@ export class HospitalSignupComponent implements OnInit {
 
   // convinience getter for easy access to form fields
   get form() { return this.hospitalSignup.controls; }
+
   ngOnInit(): void {
 
-    this.hospitalSignup = new FormGroup({
-      h_id: new FormControl('', [Validators.pattern(/\d{5}/), Validators.required, Validators.maxLength(this.idLength)]),
-      h_name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.email, Validators.required]),
-      phone: new FormControl('', [Validators.pattern(/\d{10}/), Validators.required]),
-      street: new FormControl('', [Validators.required]),
-      h_city: new FormControl('', [Validators.required]),
-      state: new FormControl('', [Validators.required]),
-      zip_code: new FormControl('', [Validators.pattern(/\d{6}/), Validators.required]),
-      password: new FormControl('', [Validators.required, Validators.minLength(this.minLength)]),
-      confirm_password: new FormControl('', [Validators.required, Validators.minLength(this.minLength)])
-    })
+    this.hospitalSignup = this.formBuilder.group({
+      h_id: ['', [Validators.pattern(/\d{5}/), Validators.required, Validators.maxLength(this.idLength)]],
+      h_name: ['', [Validators.required]],
+      h_email: ['', [Validators.email, Validators.required]],
+      h_contact_number: ['', [Validators.pattern(/\d{10}/), Validators.maxLength(this.h_contact_numberLength), Validators.required]],
+      h_street: ['', [Validators.required]],
+      h_city: ['', [Validators.required]],
+      h_state: ['', [Validators.required]],
+      h_zip_code: ['', [Validators.pattern(/\d{6}/), Validators.minLength(this.h_zip_code_Length), Validators.required]],
+      h_password: ['', [Validators.required, Validators.minLength(this.minLength)]],
+      confirm_password: ['', [Validators.required, Validators.minLength(this.minLength)]],
+    });
   }
 
-  submit() {
-    if (this.form['password'].value === this.form['confirm_password'].value) {
-
-      this.hospitalAccountService.addHospitalAccount(this.hospitalSignup.value).subscribe({
-        next: (response) => {
-          console.log(response);
-          alert("Hospital Account created")
-          if (response) {
-            this.router.navigate(['/hospital/login'])
-          }
-        }
-      });
+  // search for value in the all fields
+  public searchHospitalAccounts(key: string) {
+    const results: HospitalAccount[] = [];
+    for (const hospital of this.hospitalAccounts) {
+      if (hospital.h_id.toString().indexOf(key.toString()) !== -1 ||
+        hospital.h_name.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        hospital.h_password.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        hospital.h_street.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        hospital.h_zip_code.toString().indexOf(key.toString()) !== -1 ||
+        hospital.h_city.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        hospital.h_state.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        hospital.h_contact_number.toLowerCase().indexOf(key.toLowerCase()) !== -1 ||
+        hospital.h_email.toLowerCase().indexOf(key.toLowerCase()) !== -1) {
+        results.push(hospital);
+      }
+    }
+    this.hospitalAccounts = results;
+    if (results.length === 0 || !key) {
+      this.getHospitalAccounts();
     }
   }
+  // submit event
+  submit() {
+    if (this.form['h_password'].value !== this.form['confirm_password'].value) {
+      alert("password and confirm password has to be same");
+    }
+    if (this.hospitalSignup.valid && this.form['h_password'].value === this.form['confirm_password'].value) {
+      this.createHospitalAccount(this.hospitalSignup.value);
+    }
+  }
+  // to get all the hospitals
+  public getHospitalAccounts() {
+    this.hospitalAccountService.getHospitalAccount().subscribe(
+      {
+        next: (response: HospitalAccount[]) => {
+          this.hospitalAccounts = response;
+          console.log(this.hospitalAccounts);
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.message)
+        }
+      })
+  }
+  // to create a new hospital
+  public createHospitalAccount(dataForm: HospitalAccount) {
+    this.hospitalAccountService.addHospitalAccount(dataForm).subscribe({
+      next: (response) => {
+        console.log(response);
+        alert("Hospital Account created")
+        this.router.navigate(['/hospital/login'])
+      },
+      error: (response: HttpErrorResponse) => {
+        alert(response.message);
+      }
+    });
+  }
 }
+

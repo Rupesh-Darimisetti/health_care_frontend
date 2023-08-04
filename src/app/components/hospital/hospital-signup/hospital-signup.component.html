@@ -4,13 +4,14 @@
         <p>
             <mat-form-field appearance="outline" [style.width.em]="15">
                 <mat-label>Hospital Id</mat-label>
-                <input matInput formControlName="h_id" maxLength="{{this.idLength}}"
-                    placeholder="unique hospital identity code">
+                <input matInput formControlName="h_id" placeholder="unique hospital identity code"
+                    maxLength="{{this.idLength}}">
                 <mat-icon matSuffix>perm_identity</mat-icon>
                 <mat-error *ngIf="hospitalSignup.get('h_id')?.hasError('required')">Id cannot be empty</mat-error>
-                <mat-error
-                    *ngIf="hospitalSignup.get('h_id')?.hasError('maxLength') && hospitalSignup.get('h_id')?.hasError('pattern')">Id
-                    Length has to be 5 number</mat-error>
+                <mat-error *ngIf="hospitalSignup.get('h_id')?.hasError('maxLength')">Id has to be min {{this.idLength}}
+                    digits length </mat-error>
+                <mat-error *ngIf="hospitalSignup.get('h_id')?.hasError('pattern')">Pattern doesnt match as number is
+                    required</mat-error>
             </mat-form-field>
         </p>
         <p>
@@ -26,10 +27,10 @@
             <mat-form-field appearance="outline" [style.width.em]="15">
                 <mat-icon matSuffix>email</mat-icon>
                 <mat-label>Email Id</mat-label>
-                <input matInput ngModelOptions="{standalone: true}" formControlName="email"
-                    placeholder="email@gmail.com">
-                <mat-error *ngIf="hospitalSignup.get('email')?.hasError('required')">Email is required</mat-error>
-                <mat-error *ngIf="hospitalSignup.get('email')?.hasError('email')">Please enter a valid email address
+                <input matInput ngModelOptions="{standalone: true}" formControlName='h_email'
+                    placeholder="email@gmail.com" type="email">
+                <mat-error *ngIf="hospitalSignup.get('h_email')?.hasError('required')">Email is required</mat-error>
+                <mat-error *ngIf="hospitalSignup.get('h_email')?.hasError('email')">Please enter a valid email address
                 </mat-error>
             </mat-form-field>
         </p>
@@ -37,22 +38,24 @@
         <p>
             <mat-form-field appearance="outline" [style.width.em]="15">
                 <mat-label>Contact Number</mat-label>
-                <input matInput type="tel" maxlength="{{this.phoneLength}}" formControlName="phone"
+                <input matInput maxlength="{{this.h_contact_numberLength}}" formControlName="h_contact_number"
                     placeholder="contact number">
                 <mat-icon matSuffix>phone</mat-icon>
-                <mat-error *ngIf="hospitalSignup.get('phone')?.hasError('required')">Phone number cannot be
-                    empty</mat-error>
-                <mat-error *ngIf="hospitalSignup.get('phone')?.hasError('maxLength')">Phone number has to be 10
-                    numbers</mat-error>
+                <mat-error *ngIf="hospitalSignup.get('h_contact_number')?.hasError('Pattern')">Contact number
+                    has to be a number</mat-error>
+                <mat-error *ngIf="hospitalSignup.get('h_contact_number')?.hasError('required')">Contact number
+                    cannot be empty</mat-error>
+                <mat-error *ngIf="hospitalSignup.get('h_contact_number')?.hasError('maxLength')">Contact number
+                    has to be 10 numbers</mat-error>
             </mat-form-field>
         </p>
 
         <p>
             <mat-form-field appearance="outline" [style.width.em]="15">
                 <mat-label>Street Address</mat-label>
-                <input matInput formControlName="street" placeholder="hospital street address">
+                <input matInput formControlName="h_street" placeholder="hospital street address">
                 <mat-icon matSuffix>location_on</mat-icon>
-                <mat-error *ngIf="hospitalSignup.get('street')?.hasError('required')">Street name cannot be
+                <mat-error *ngIf="hospitalSignup.get('h_street')?.hasError('required')">Street name cannot be
                     empty</mat-error>
             </mat-form-field>
         </p>
@@ -68,17 +71,18 @@
         <p>
             <mat-form-field appearance="outline" [style.width.em]="15">
                 <mat-label>State</mat-label>
-                <input matInput formControlName="state" placeholder="state">
+                <input matInput formControlName="h_state" placeholder="state">
                 <mat-icon matSuffix>location_on</mat-icon>
-                <mat-error *ngIf="hospitalSignup.get('state')?.hasError('required')">State cannot be empty</mat-error>
+                <mat-error *ngIf="hospitalSignup.get('h_state')?.hasError('required')">State cannot be empty</mat-error>
             </mat-form-field>
         </p>
         <p>
             <mat-form-field appearance="outline" [style.width.em]="15">
                 <mat-label>Zip Code</mat-label>
-                <input matInput formControlName="zip_code" placeholder="zip code">
+                <input matInput formControlName="h_zip_code" maxlength="{{this.h_zip_code_Length}}"
+                    placeholder="zip code">
                 <mat-icon matSuffix>location_on</mat-icon>
-                <mat-error *ngIf="hospitalSignup.get('zip_code')?.hasError('required')">zip_code cannot be
+                <mat-error *ngIf="hospitalSignup.get('h_zip_code')?.hasError('required')">Zip code cannot be
                     empty</mat-error>
             </mat-form-field>
         </p>
@@ -86,22 +90,22 @@
         <p>
             <mat-form-field appearance="outline" [style.width.em]="15">
                 <mat-label>Enter your password</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <input matInput [type]="hidePass ? 'password' : 'text'" formControlName="h_password">
+                <button mat-icon-button matSuffix (click)="hidePass = !hidePass" [attr.aria-label]="'Hide password'"
+                    [attr.aria-pressed]="hidePass">
+                    <mat-icon>{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
-                <mat-error *ngIf="hospitalSignup.get('password')?.hasError('required')">password cannot be
+                <mat-error *ngIf="hospitalSignup.get('h_password')?.hasError('required')">Password cannot be
                     empty</mat-error>
             </mat-form-field>
         </p>
         <p>
             <mat-form-field appearance="outline" [style.width.em]="15">
                 <mat-label>Confirm Password </mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" formControlName="confirm_password">
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <input matInput [type]="hideConfirmPass ? 'password' : 'text'" formControlName="confirm_password">
+                <button mat-icon-button matSuffix (click)="hideConfirmPass = !hideConfirmPass"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPass">
+                    <mat-icon>{{hideConfirmPass ? 'visibility_off' : 'visibility'}}</mat-icon>
                 </button>
                 <mat-error *ngIf="hospitalSignup.get('confirm_password')?.hasError('required')">confirm_password cannot
                     be empty</mat-error>
