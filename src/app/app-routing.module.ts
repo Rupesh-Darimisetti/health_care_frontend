@@ -5,6 +5,7 @@ import { CustomerDetailedComponent } from './components/customer/customer-detail
 import { CustomerLoginComponent } from './components/customer/customer-login/customer-login.component';
 import { CustomerSignupComponent } from './components/customer/customer-signup/customer-signup.component';
 import { AddDoctorComponent } from './components/hospital/doctor/add-doctor/add-doctor.component';
+import { UpdateDoctorComponent } from './components/hospital/doctor/update-doctor/update-doctor.component';
 import { DoctorListComponent } from './components/hospital/doctor/doctor-list/doctor-list.component';
 import { HospitalDashboardComponent } from './components/hospital/hospital-dashboard/hospital-dashboard.component';
 import { HospitalLoginComponent } from './components/hospital/hospital-login/hospital-login.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'hospital/doctor', component: DoctorListComponent },
   { path: 'hospital/doctor/add_doctor', component: AddDoctorComponent },
   { path: 'hospital/doctor/doctorlist', component: DoctorListComponent },
+  { path: 'hospital/doctor/update/:id', component: UpdateDoctorComponent },
   // beds
   { path: 'hospital/hospital_beds', component: BedsListComponent },
   { path: 'hospital/hospital_beds/add_beds', component: AddBedsComponent },
