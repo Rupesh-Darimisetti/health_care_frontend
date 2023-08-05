@@ -1,4 +1,5 @@
 <h1 mat-dialog-title>Add Doctor Data</h1>
+<a mat-raised-button color="accent" routerLink="/hospital/dashboard">Hospital Doctor List</a>
 <div class="container">
     <div mat-dialog-content>
         <form [formGroup]="doctorForm">
@@ -12,14 +13,14 @@
             </mat-form-field>
             <mat-form-field apperance="fill">
                 <mat-label> Select a Gender</mat-label>
-                <mat-select formControlName="gender" (value)="selectedGender">
+                <mat-select formControlName="gender">
                     <mat-option *ngFor="let gender of genders" [value]="gender">{{gender}}</mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field apperance="outline">
                 <mat-label>Age</mat-label>
-                <input formControlName="age" matInput placeholder="Age" required>
+                <input formControlName="age" matInput placeholder="Age" type="number" required>
             </mat-form-field>
 
             <mat-form-field apperance="outline">
@@ -29,7 +30,7 @@
 
             <mat-form-field apperance="outline">
                 <mat-label>contact_number</mat-label>
-                <input formControlName="contact_number" matInput placeholder="contact number" required>
+                <input formControlName="contact_number" maxlength="12" matInput placeholder="contact number" required>
             </mat-form-field>
 
             <mat-form-field apperance="outline">
@@ -47,11 +48,8 @@
                 <input formControlName="languages_known" matInput placeholder="languages_known" required>
             </mat-form-field>
             <mat-form-field apperance="outline">
-                <mat-label>consultation_hours</mat-label>
-                <input formControlName="consultation_hours" matInput placeholder="consultation_hours">
-                <!-- <input matInput [matDatepicker]="picker" formControlName="selectedTimes" multiple> -->
-                <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
-                <!-- <mat-datepicker #picker></mat-datepicker></mat-form-field> -->
+                <mat-label>consultation_hours start and end</mat-label>
+                <input formControlName="consultation_hours" matInput placeholder="(HH:mm:ss), (HH:mm:ss) ">
             </mat-form-field>
             <mat-form-field apperance="outline">
                 <mat-label>Select Available Days</mat-label>
@@ -62,7 +60,6 @@
         </form>
     </div>
     <div mat-dialog-action [align]="'center'">
-        <!-- <button mat-raised-button color="warn" mat-dialog-close>Close</button> -->
         <button style="width: 70%;" mat-raised-button color="accent" (click)="addDoctor()">save</button>
     </div>
 </div>

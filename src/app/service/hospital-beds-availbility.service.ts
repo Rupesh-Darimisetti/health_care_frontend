@@ -8,15 +8,15 @@ import { HospitalBedsAvailibility } from '../interfaces/HospitalBedsAvailibility
 })
 export class HospitalBedsAvailbilityService {
 
-  private apiServiceUrl = `${environment.apiBaseUrl}/beds-availability`
+  private apiServiceUrl = `${environment.apiBaseUrl}/beds`
   constructor(private http: HttpClient) { }
 
   public getAllHospitalBedsAvailable() {
-    return this.http.get<any | HospitalBedsAvailibility>(`${this.apiServiceUrl}/all`);
+    return this.http.get<any>(`${this.apiServiceUrl}/all`);
   }
 
   public geHospitalBedsAvailableById(hospitalBedsAvailableId: number) {
-    return this.http.get<any | HospitalBedsAvailibility>(`${this.apiServiceUrl}/${hospitalBedsAvailableId}`);
+    return this.http.get<any>(`${this.apiServiceUrl}/${hospitalBedsAvailableId}`);
   }
 
   public addHospitalBedsAvailable(data: HospitalBedsAvailibility) {

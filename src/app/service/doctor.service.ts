@@ -9,17 +9,17 @@ import { DoctorDetails } from '../interfaces/DoctorDetails';
 })
 export class DoctorService {
   // doctor list url
-  private apiServiceUrl: String = `${environment.apiBaseUrl}/doctors`;
+  private apiServiceUrl: string = `${environment.apiBaseUrl}/doctors`;
   constructor(private http: HttpClient) { }
 
   addDoctor(data: DoctorDetails) {
     return this.http.post<any>(`${this.apiServiceUrl}/add`, data);
   }
   getAllDoctor() {
-    return this.http.get<any | DoctorDetails>(`${this.apiServiceUrl}/all`);
+    return this.http.get<any>(`${this.apiServiceUrl}/all`);
   }
   getDoctorById(id: number) {
-    return this.http.get<any | DoctorDetails>(`${this.apiServiceUrl}/${id}`);
+    return this.http.get<any>(`${this.apiServiceUrl}/${id}`);
   }
   updateDoctor(doctor: DoctorDetails, id: number) {
     return this.http.put<any>(`${this.apiServiceUrl}/update/${id}`, doctor);
@@ -30,7 +30,7 @@ export class DoctorService {
 
   getDoctorCount() {
     return this.http
-      .get<any>(`${this.apiServiceUrl}/hospital/docotor`)
+      .get<any>(`${this.apiServiceUrl}/all`)
       .pipe(map((DoctorList: any[]) => DoctorList.length));
   }
 

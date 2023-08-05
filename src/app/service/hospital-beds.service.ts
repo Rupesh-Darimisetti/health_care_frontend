@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { HospitalBeds } from '../interfaces/HospitalBeds';
 
@@ -7,6 +8,7 @@ import { HospitalBeds } from '../interfaces/HospitalBeds';
   providedIn: 'root'
 })
 export class HospitalBedsService {
+
   // hospital beds list url
   private apiServiceUrl: String = `${environment.apiBaseUrl}/beds`;
   constructor(private http: HttpClient) { }
@@ -30,5 +32,14 @@ export class HospitalBedsService {
 
   public deleteHospitalBeds(HospitalBedsId: number) {
     return this.http.delete<any>(`${this.apiServiceUrl}/delete/${HospitalBedsId}`);
+  }
+  getHospitalBedsCount() {
+    // console.log(this.http
+    // .get<any>(`${this.apiServiceUrl}`)
+    // .pipe(map((HospitalAccountList: any[]) => HospitalAccountList.length)))
+    return this.http
+      .get<any>(`${this.apiServiceUrl}/all`)
+      .pipe(map((HospitalAccountList: any[]) => HospitalAccountList.length));
+
   }
 }

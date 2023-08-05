@@ -15,13 +15,11 @@ import { UpdateDoctorComponent } from '../update-doctor/update-doctor.component'
 export class DoctorListComponent implements OnInit {
 
   DoctorCount: number = 0;
-  displayedColumns: String[] = [
+  displayedColumns: string[] = [
+    "doctor_id",
     "id",
     "age",
-    "edit",
-    "delete",
     "gender",
-    "doctor_id",
     "last_name",
     "first_name",
     "email_address",
@@ -31,6 +29,8 @@ export class DoctorListComponent implements OnInit {
     "years_of_experience",
     "consultation_hours",
     "availability_days",
+    "edit",
+    "delete",
   ]
   dataSource!: MatTableDataSource<DoctorDetails>;
 
@@ -40,6 +40,7 @@ export class DoctorListComponent implements OnInit {
   constructor(private dialog: MatDialog, private doctorService: DoctorService) { }
   ngOnInit(): void {
     this.getAllDoctors();
+    this.TotalDoctorCount();
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;

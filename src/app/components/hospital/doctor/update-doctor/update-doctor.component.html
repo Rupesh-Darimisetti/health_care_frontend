@@ -4,7 +4,7 @@
         <form [formGroup]="doctorForm">
             <mat-form-field apperance="outline">
                 <mat-label>First Name</mat-label>
-                <input formControlName="first_name" matInput placeholder="first_name" [value]='currentDoctor.first_name' required>
+                <input formControlName="first_name" matInput placeholder="first_name" required>
             </mat-form-field>
             <mat-form-field apperance="outline">
                 <mat-label>Last Name</mat-label>
@@ -49,9 +49,6 @@
             <mat-form-field apperance="outline">
                 <mat-label>consultation_hours</mat-label>
                 <input formControlName="consultation_hours" matInput placeholder="consultation_hours">
-                <!-- <input matInput [matDatepicker]="picker" formControlName="selectedTimes" multiple> -->
-                <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
-                <!-- <mat-datepicker #picker></mat-datepicker></mat-form-field> -->
             </mat-form-field>
             <mat-form-field apperance="outline">
                 <mat-label>Select Available Days</mat-label>
@@ -62,7 +59,8 @@
         </form>
     </div>
     <div mat-dialog-action [align]="'center'">
-        <!-- <button mat-raised-button color="warn" mat-dialog-close>Close</button> -->
-        <button style="width: 70%;" mat-raised-button color="accent" (click)="updateDoctor()">save</button>
+        <button style="width: 70%; margin: 20px;" mat-raised-button color="accent"
+            (click)="updateDoctor()">save</button>
+        <button style="width: 70%; margin: 20px;" mat-raised-button color="warn" mat-dialog-close>Close</button>
     </div>
 </div>

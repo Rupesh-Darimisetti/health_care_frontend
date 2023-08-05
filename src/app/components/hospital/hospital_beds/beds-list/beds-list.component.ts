@@ -18,17 +18,17 @@ export class BedsListComponent {
   public hospitalBeds!: HospitalBeds[];
   public editHospitalBed!: HospitalBeds | null;
   public deleteHospitalBed!: HospitalBeds | null;
-
+  HospitalBedsCount!: number;
   displayedColumns: String[] = [
-    "id",
-    "hRegularBeds",
-    "hIcuBeds",
-    "hPediatricBeds",
-    "hMaternityBeds",
-    "hBirthingBeds",
-    "hOrthopedicBeds",
-    "hHomeCareBeds",
-    "hEmergencyBeds",
+    "serial_num",
+    "h_regular_beds",
+    "h_icu_beds",
+    "h_pediatric_beds",
+    "h_maternity_beds",
+    "h_birthing_beds",
+    "h_orthopedic_beds",
+    "h_home_care_beds",
+    "h_emergency_beds",
     "edit",
   ]
   dataSource!: MatTableDataSource<HospitalBeds>;
@@ -39,6 +39,7 @@ export class BedsListComponent {
   constructor(private dialog: MatDialog, private hospitalBedService: HospitalBedsService) { }
   ngOnInit(): void {
     this.getAllHospitalBeds();
+    this.TotalHospitalBedsCount();
   }
 
 
@@ -96,11 +97,11 @@ export class BedsListComponent {
 
     });
   }
-  // TotalHospitalBedsCount() {
-  //   this.hospitalBedService.getHospitalBedsCount().subscribe({
-  //     next: (count: number) => {
-  //       this.hospitalBedCount = count;
-  //     }
-  //   });
-  // }
+  TotalHospitalBedsCount() {
+    this.hospitalBedService.getHospitalBedsCount().subscribe({
+      next: (count: number) => {
+        this.hospitalBedCount = count;
+      }
+    });
+  }
 }

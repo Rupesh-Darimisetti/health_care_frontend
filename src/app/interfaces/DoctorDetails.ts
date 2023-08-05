@@ -2,6 +2,7 @@ import { AvailabilityDays } from "../enums/AvailableDays";
 import { Gender } from "../enums/Gender";
 
 export interface DoctorDetails {
+    doctor_id: number;
     first_name: string;
     last_name: string;
     gender: Gender;
